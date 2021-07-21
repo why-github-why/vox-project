@@ -9,6 +9,9 @@
       hover green: #57b846
       light green: #91d400
       yellow: #bfee00
+      lighter grey: #e6e6e6
+      light grey: #aaa
+      grey: #666
 
 */
 
@@ -46,6 +49,7 @@ a {
 
 h4 {
    font-family: Poppins-Bold, sans-serif;
+   color: #81898F;
 }
 
 .wall {
@@ -125,11 +129,10 @@ h4 {
 }
 
 .form-control:focus {
-   /* color: #212529;
-   background-color: #fff; */
-   border-color: #777;
+   /* background-color: #fff; */
+   /* border-color: #A1A6AA; */
    outline: 0;
-   box-shadow: 0 0 0 0.25rem #777;
+   box-shadow: 0 0 0 0.25rem #A1A6AA;
 }
 
 /* MEDIA QUERIES */

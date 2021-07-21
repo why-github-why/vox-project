@@ -1,8 +1,12 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
 <section class="wall">
    <div class="window">
       <div class="container">
-         <div class="row">
+         <div class="row g-0">
+            
             <!-- Logo -->
             <div class="col-12 py-5 text-center">
                <div class="logo js-tilt" data-tilt>
@@ -15,20 +19,14 @@
             </div>
 
             <!-- Employee Login -->
-            <div class="col-12 col-lg-6 pb-5 text-center">
+            <div class="col-10 col-sm-8 pb-5 m-auto">
                <h4 class="pb-5 text-center">Employee Login</h4>
 
-               <form
-                  action="/customers/"
-                  method="POST"
-                  class="form-width m-auto"
-               >
+               <!-- Message Alert -->
+               {% include 'partials/_messages.html' %}
+
+               <form action="{% url 'login' %}" method="POST">
                   {% csrf_token %}
-                  <input
-                     type="hidden"
-                     name="csrfmiddlewaretoken"
-                     value="0IBXVQFZMbz3QVuuOYnddCo3NyJolenA6SuD29WXV2SK7tctFJCQr7PYOGyBe22p"
-                  />
                   <div class="form-group">
                      <input
                         type="text"
@@ -50,8 +48,6 @@
 
                   <input type="submit" value="Login" class="btn" />
 
-                  <!-- Message Alert -->
-                  {% include 'partials/_messages.html' %}
                </form>
             </div>
          </div>
