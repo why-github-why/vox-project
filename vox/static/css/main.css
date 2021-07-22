@@ -45,9 +45,14 @@ body, html {
 
 a {
    text-decoration: none;
+   color: #57b846;
 }
 
-h4 {
+a:hover {
+   color: #05ab00;
+}
+
+h4, p {
    font-family: Poppins-Bold, sans-serif;
    color: #81898F;
 }

@@ -20,28 +20,43 @@
 
             <!-- Employee Login -->
             <div class="col-10 col-sm-8 pb-5 m-auto">
-               <h4 class="pb-5 text-center">Hi, {{ employee.username }}</h4>
 
-               <!-- Message Alert -->
-               {% include 'partials/_messages.html' %}
+               {% if user.is_authenticated %}
 
-               <div class="form-width m-auto">
+                  <h4 class="pb-5 text-center">Hi, {{ user.username | title }}</h4>
 
-                  <button type="button" class="btn-outline">
-                     Create a new customer
-                  </button>
+                  <!-- Message Alert -->
+                  {% include 'partials/_messages.html' %}
 
-                  <button type="button" class="btn-outline">
-                     Modify existing customer
-                  </button>
+                  <div class="form-width m-auto">
 
-                  <button type="button" class="btn-outline">
-                     Display all customers
-                  </button>
+                     <button type="button" class="btn-outline">
+                        Create a new customer
+                     </button>
 
-                  <input type="submit" value="Logout" class="btn mt-5" />
+                     <button type="button" class="btn-outline">
+                        Modify existing customer
+                     </button>
 
-               </div>
+                     <button type="button" class="btn-outline">
+                        Display all customers
+                     </button>
+
+                     <form action="{% url 'logout' %}" method="POST" id="logout">
+                        {% csrf_token %}
+                        <input type="submit" value="Logout" class="btn mt-5" />
+                     </form>
+
+                  </div>
+
+               {% else %}
+
+                  <p class="pb-5 text-center">
+                     Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a> first.
+                  </p>
+
+               {% endif %}
+
             </div>
          </div>
       </div>
