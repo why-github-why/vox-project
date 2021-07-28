@@ -14,14 +14,14 @@ def register(request):
       # check if passwords match
       if password == confirm_password:
 
-         # check if username already exists in db
+         # check if username exists
          if User.objects.filter(username=username).exists():
             messages.error(request, 'Username is already taken.')
             return redirect('register')
          else:
-            # check if email already exists in db
+            # check if email exists
             if User.objects.filter(email=email).exists():
-               messages.error(request, 'Email is already being used.')
+               messages.error(request, 'Email is already in use.')
                return redirect('register')
             else:
                # create user
@@ -32,7 +32,6 @@ def register(request):
                )
                user.save()
 
-               # create employee
                employee = Employee(
                   username = username,
                   email = email,
@@ -58,11 +57,11 @@ def login(request):
       password = request.POST['password']
 
       # authenticate employee
-      employee = auth.authenticate(username=username, password=password)
+      user = auth.authenticate(username=username, password=password)
 
       # check if employee is registered
-      if employee is not None:
-         auth.login(request, employee)
+      if user is not None:
+         auth.login(request, user)
          messages.success(request, 'You logged in successfully.')
          return redirect('customers')
       else:

@@ -30,17 +30,23 @@
 
                   <div class="form-width m-auto">
 
-                     <button type="button" class="btn-outline">
-                        Create a new customer
-                     </button>
+                     <a href="{% url 'create' %}">
+                        <button type="button" class="btn-outline">
+                           Create a new customer
+                        </button>
+                     </a>
 
-                     <button type="button" class="btn-outline">
-                        Modify existing customer
-                     </button>
+                     <a href="{% url 'modify' %}">
+                        <button type="button" class="btn-outline">
+                           Modify an existing customer
+                        </button>
+                     </a>
 
-                     <button type="button" class="btn-outline">
-                        Display all customers
-                     </button>
+                     <a href="{% url 'display' %}">
+                        <button type="button" class="btn-outline">
+                           Display customer
+                        </button>
+                     </a>
 
                      <form action="{% url 'logout' %}" method="POST" id="logout">
                         {% csrf_token %}

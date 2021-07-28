@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="wall">
+   <div class="window">
+      <div class="container">
+         <div class="row">
+
+            <!-- Logo -->
+            <div class="col-12 py-5 text-center">
+               <div class="logo js-tilt" data-tilt>
+                  <img
+                     src="{% static 'images/vox-logo.png' %}"
+                     alt="Vox logo"
+                     class=""
+                  />
+               </div>
+            </div>
+
+            <!-- Create Customer -->
+            <div class="col-10 col-sm-8 pb-5 m-auto">
+
+               {% if user.is_authenticated %}
+               
+                  <input type="hidden" name="user_id" value="{{ user.id }}">
+                  <input type="hidden" name="username" value="{{ user.username }}">
+
+                  <h4 class="text-center">Hi, {{ user.username | title }}</h4>
+                  <h3 class="pb-5 text-center page-title">Modify Customer</h3>
+
+                  <form action="{% url 'modify' %}" method="POST">
+                     {% csrf_token %}
+                     <div class="form-group">
+                        <p>Customer ID</p>
+                        <input
+                           type="text"
+                           name="customer_id"
+                           class="form-id"
+                           value="{{ customer_id }}"
+                           readonly
+                        />
+                     </div>
+                     <div class="form-group">
+                        <p>Company Name</p>
+                        <input
+                           type="text"
+                           name="company_name"
+                           class="form-info"
+                        />
+                     </div>
+                     <div class="form-group">
+                        <p>Customer Email</p>
+                        <input
+                           type="email"
+                           name="customer_email"
+                           class="form-info"
+                        />
+                     </div>
+                     <div class="form-group">
+                        <p>Customer Phone</p>
+                        <input
+                           type="tel"
+                           name="customer_phone"
+                           class="form-info"
+                        />
+                     </div>
+
+                     <input type="submit" value="Create" class="btn mt-4" />
+
+                     <p class="text-center">
+                        <a href="{% url 'customers' %}">Delete</a>
+                     </p>
+                     <!-- TODO: ADD "Are you sure?" -->
+                  </form>
+
+               {% else %}
+
+                  <p class="pb-5 text-center">
+                     Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a> first.
+                  </p>
+
+               {% endif %}
+
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+{% endblock %}

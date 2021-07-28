@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="wall">
+   <div class="window">
+      <div class="container">
+         <div class="row">
+
+            <!-- Logo -->
+            <div class="col-12 py-5 text-center">
+               <div class="logo js-tilt" data-tilt>
+                  <img
+                     src="{% static 'images/vox-logo.png' %}"
+                     alt="Vox logo"
+                     class=""
+                  />
+               </div>
+            </div>
+
+            <!-- Display Customer -->
+            <div class="col-10 col-sm-8 pb-5 m-auto">
+
+               {% if user.is_authenticated %}
+               
+                  <input type="hidden" name="user_id" value="{{ user.id }}">
+                  <input type="hidden" name="username" value="{{ user.username }}">
+
+                  <h4 class="text-center">Hi, {{ user.username | title }}</h4>
+                  <h3 class="pb-5 text-center page-title">Display Customer</h3>
+
+               {% else %}
+
+                  <p class="pb-5 text-center">
+                     Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a> first.
+                  </p>
+
+               {% endif %}
+
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+{% endblock %}
