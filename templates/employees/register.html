@@ -20,10 +20,12 @@
 
             <!-- Employee Register -->
             <div class="col-10 col-sm-8 pb-5 m-auto">
-               <h4 class="pb-5 text-center">Employee Register</h4>
+               <h4 class="text-center">Employee Register</h4>
 
                <!-- Message Alert -->
-               {% include 'partials/_messages.html' %}
+               <div class="alert-area">
+                  {% include 'partials/_messages.html' %}
+               </div>
 
                <form action="{% url 'register' %}" method="POST">
                   {% csrf_token %}
@@ -72,7 +74,7 @@
                      />
                   </div>
 
-                  <input type="submit" value="Register" class="btn mt-4" />
+                  <input type="submit" value="Register" class="btn" />
 
                   <p class="text-center">
                      Already registered?

@@ -23,9 +23,6 @@
 
                {% if user.is_authenticated %}
                
-                  <input type="hidden" name="user_id" value="{{ user.id }}">
-                  <input type="hidden" name="username" value="{{ user.username }}">
-
                   <h4 class="text-center">Hi, {{ user.username | title }}</h4>
                   <h3 class="pb-5 text-center page-title">Modify Customer</h3>
 

@@ -159,7 +159,7 @@ h3, h4, p {
    font-size: 18px;
    font-weight: bold;
    color: #2CB700;
-   width: 25%;
+   width: 100%;
    outline: none;
    border-style: none;
 }
@@ -180,6 +180,42 @@ h3, h4, p {
    border-bottom-style: solid;
    border-image: linear-gradient(to right, #05ab00, #91d400) 1;
 }
+
+/* ALERTS */
+
+.alert-area {
+   height: 56px;
+   margin-top: 5%;
+   margin-bottom: 5%;
+}
+
+/* .alert {
+   border: none;
+   border-radius: 0;
+}
+
+.alert-success, .alert-danger, .alert-warning, .alert-info {
+   background-color: #fff;
+   border-color: #fff;
+} */
+
+/* PAGINATOR */
+
+.pagination {
+   justify-content: center;
+}
+
+.page-item.active .page-link {
+   background-color: #2CB700;
+   border-color: #2CB700;
+}
+
+.page-link {
+   color: #2CB700;
+   border: none;
+   border-radius: 5px;
+}
+
 
 /* MEDIA QUERIES */
 

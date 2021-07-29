@@ -16,12 +16,12 @@ def register(request):
 
          # check if username exists
          if User.objects.filter(username=username).exists():
-            messages.error(request, 'Username is already taken.')
+            messages.error(request, 'Username already in use.')
             return redirect('register')
          else:
             # check if email exists
             if User.objects.filter(email=email).exists():
-               messages.error(request, 'Email is already in use.')
+               messages.error(request, 'Email already in use.')
                return redirect('register')
             else:
                # create user
@@ -39,7 +39,7 @@ def register(request):
                )
                employee.save()
 
-               messages.success(request, 'You are now registered.')
+               messages.success(request, 'You\'re registered.')
                return redirect('login')
 
       else:
@@ -62,7 +62,7 @@ def login(request):
       # check if employee is registered
       if user is not None:
          auth.login(request, user)
-         messages.success(request, 'You logged in successfully.')
+         messages.success(request, 'You\'re logged in.')
          return redirect('customers')
       else:
          messages.error(request, 'Invalid credentials.')
@@ -76,5 +76,5 @@ def logout(request):
    if request.method == 'POST':
       # logout employee
       auth.logout(request)
-      messages.success(request, 'You are now logged out.')
+      messages.success(request, 'You\'re logged out.')
       return redirect('login')

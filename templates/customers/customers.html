@@ -23,10 +23,12 @@
 
                {% if user.is_authenticated %}
 
-                  <h4 class="pb-5 text-center">Hi, {{ user.username | title }}</h4>
+                  <h4 class="text-center">Hi, {{ user.username | title }}</h4><!-- pb-5 -->
 
                   <!-- Message Alert -->
-                  {% include 'partials/_messages.html' %}
+                  <div class="alert-area">
+                     {% include 'partials/_messages.html' %}
+                  </div>
 
                   <div class="form-width m-auto">
 
@@ -36,7 +38,7 @@
                         </button>
                      </a>
 
-                     <a href="{% url 'modify' %}">
+                     <a href="{% url 'search' %}">
                         <button type="button" class="btn-outline">
                            Modify an existing customer
                         </button>
@@ -44,13 +46,13 @@
 
                      <a href="{% url 'display' %}">
                         <button type="button" class="btn-outline">
-                           Display customer
+                           Display all customers
                         </button>
                      </a>
 
                      <form action="{% url 'logout' %}" method="POST" id="logout">
                         {% csrf_token %}
-                        <input type="submit" value="Logout" class="btn mt-5" />
+                        <input type="submit" value="Logout" class="btn" />
                      </form>
 
                   </div>

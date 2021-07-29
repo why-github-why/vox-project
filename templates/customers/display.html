@@ -22,12 +22,122 @@
             <div class="col-10 col-sm-8 pb-5 m-auto">
 
                {% if user.is_authenticated %}
-               
-                  <input type="hidden" name="user_id" value="{{ user.id }}">
-                  <input type="hidden" name="username" value="{{ user.username }}">
 
                   <h4 class="text-center">Hi, {{ user.username | title }}</h4>
-                  <h3 class="pb-5 text-center page-title">Display Customer</h3>
+                  <h3 class="pb-5 text-center page-title">Display All Customers</h3>
+
+                  {% if display_customers %}
+                     {% for display in display_customers %}
+                        <div class="form-group">
+                           <p>User ID</p>
+                           <input
+                              type="text"
+                              name="user_id"
+                              class="form-id"
+                              value="{{ user.id }}"
+                              readonly
+                           />
+                        </div>
+                        <div class="form-group">
+                           <p>Customer ID</p>
+                           <input
+                              type="text"
+                              name="customer_id"
+                              class="form-id"
+                              value="{{ display.customer_id }}"
+                              readonly
+                           />
+                        </div>
+                        <div class="form-group">
+                           <p>Company Name</p>
+                           <input
+                              type="text"
+                              name="company_name"
+                              class="form-id"
+                              value="{{ display.company_name }}"
+                              readonly
+                           />
+                        </div>
+                        <div class="form-group">
+                           <p>Customer Email</p>
+                           <input
+                              type="email"
+                              name="customer_email"
+                              class="form-id"
+                              value="{{ display.customer_email }}"
+                              readonly
+                           />
+                        </div>
+                        <div class="form-group pb-4">
+                           <p>Customer Phone</p>
+                           <input
+                              type="text"
+                              name="customer_phone"
+                              class="form-id"
+                              value="{{ display.customer_phone }}"
+                              readonly
+                           />
+                        </div>
+                     {% endfor %}
+
+                  {% else %}
+
+                     <p>No data to display.</p>
+
+                  {% endif %}
+
+                  <!-- PAGINATION -->
+
+                  <div class="row pt-5">
+                     <div class="col-md-12">
+
+                        {% if display_customers.has_other_pages %}
+                           <ul class="pagination">
+
+                              <!-- Previous button -->
+                              {% if display_customers.has_previous %}
+                                 <li class="page-item">
+                                    <a href="?page={{ posts.previous_page_number }}" class="page-link">&laquo;</a>
+                                 </li>
+                              {% else %}
+                                 <li class="page-item disabled">
+                                    <a href="" class="page-link">&laquo;</a>
+                                 </li>
+                              {% endif %}
+
+                              <!-- Page Numbers -->
+                              {% for d in display_customers.paginator.page_range %}
+                                 {% if display_customers.number == d %}
+                                    <li class="page-item active">
+                                       <a href="" class="page-link">{{ d }}</a>
+                                    </li>
+                                 {% else %}
+                                    <li class="page-item">
+                                       <a href="?page={{ d }}" class="page-link">{{ d }}</a>
+                                    </li>
+                                 {% endif %}
+                              {% endfor %}
+
+                              <!-- Next button -->
+                              {% if display_customers.has_next %}
+                              <li class="page-item">
+                                 <a href="?page={{ display_customers.next_page_number }}" class="page-link">&raquo;</a>
+                                 </li>
+                              {% else %}
+                                 <li class="page-item disabled">
+                                    <a href="" class="page-link">&raquo;</a>
+                                 </li>
+                              {% endif %}
+
+                           </ul>
+                        {% endif %}
+
+                     </div>
+                  </div>
+
+                  <a href="{% url 'customers' %}">
+                     <input type="button" value="Return" class="btn mt-4" />
+                  </a>
 
                {% else %}
 

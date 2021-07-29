@@ -20,10 +20,12 @@
 
             <!-- Employee Login -->
             <div class="col-10 col-sm-8 pb-5 m-auto">
-               <h4 class="pb-5 text-center">Employee Login</h4>
+               <h4 class="text-center">Employee Login</h4>
 
                <!-- Message Alert -->
-               {% include 'partials/_messages.html' %}
+               <div class="alert-area">
+                  {% include 'partials/_messages.html' %}
+               </div>
 
                <form action="{% url 'login' %}" method="POST">
                   {% csrf_token %}
