@@ -13,6 +13,7 @@ function showSearch() {
 
    if (s.style.display == "none") {
       s.style.display = "block";
+      s.style.paddingBottom = "0.5rem";
    } else {
       s.style.display = "none";
    }
