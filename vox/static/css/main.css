@@ -181,6 +181,20 @@ h3, h4, p {
    border-image: linear-gradient(to right, #05ab00, #91d400) 1;
 }
 
+.submit-search {
+   display: block;
+   border: none;
+   margin: 0 auto;
+   padding: 0.5rem 0;
+   background: none;
+   color: #57b846;
+   font-family: Poppins-Bold, sans-serif;
+}
+
+.submit-search:hover {
+   color: #2CB700;
+}
+
 /* ALERTS */
 
 .alert-area {

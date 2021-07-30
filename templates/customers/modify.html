@@ -23,53 +23,117 @@
 
                {% if user.is_authenticated %}
                
-                  <h4 class="text-center">Hi, {{ user.username | title }}</h4>
-                  <h3 class="pb-5 text-center page-title">Modify Customer</h3>
+                  {% if results %}
+                     {% for result in results %}
+                        <h4 class="text-center">Hi, {{ user.username | title }}</h4>
+                        <h3 class="pb-5 text-center page-title">Modify Customer</h3>
 
-                  <form action="{% url 'modify' %}" method="POST">
-                     {% csrf_token %}
-                     <div class="form-group">
-                        <p>Customer ID</p>
-                        <input
-                           type="text"
-                           name="customer_id"
-                           class="form-id"
-                           value="{{ customer_id }}"
-                           readonly
-                        />
-                     </div>
-                     <div class="form-group">
-                        <p>Company Name</p>
-                        <input
-                           type="text"
-                           name="company_name"
-                           class="form-info"
-                        />
-                     </div>
-                     <div class="form-group">
-                        <p>Customer Email</p>
-                        <input
-                           type="email"
-                           name="customer_email"
-                           class="form-info"
-                        />
-                     </div>
-                     <div class="form-group">
-                        <p>Customer Phone</p>
-                        <input
-                           type="tel"
-                           name="customer_phone"
-                           class="form-info"
-                        />
+                        <form action="{% url 'modify' %}" method="POST">
+                           {% csrf_token %}
+                           <div class="form-group">
+                              <p>User ID</p>
+                              <input
+                                 type="text"
+                                 name="user_id"
+                                 class="form-id"
+                                 value="{{ user.id }}"
+                                 readonly
+                              />
+                           </div>
+                           <div class="form-group">
+                              <p>Customer ID</p>
+                              <input
+                                 type="text"
+                                 name="customer_id"
+                                 class="form-id"
+                                 value="{{ result.customer_id }}"
+                                 readonly
+                              />
+                           </div>
+                           <div class="form-group">
+                              <p>Company Name</p>
+                              <input
+                                 type="text"
+                                 name="company_name"
+                                 class="form-info"
+                                 value="{{ result.company_name }}"
+                              />
+                           </div>
+                           <div class="form-group">
+                              <p>Customer Email</p>
+                              <input
+                                 type="email"
+                                 name="customer_email"
+                                 class="form-info"
+                                 value="{{ result.customer_email }}"
+                              />
+                           </div>
+                           <div class="form-group">
+                              <p>Customer Phone</p>
+                              <input
+                                 type="text"
+                                 name="customer_phone"
+                                 class="form-info"
+                                 value="{{ result.customer_phone }}"
+                              />
+                           </div>
+
+                           <input type="submit" value="Modify" class="btn mt-4" />
+
+                        </form>
+
+                        <p class="text-center">
+                           <a
+                              href="#/"
+                              class="link-danger"
+                              id="prompt-delete"
+                              onclick="promptDelete()"
+                              >Delete</a
+                           >
+                           <span id="answer-yes" style="display: none;">
+                              Are you sure?
+                              <a href="{% url 'customers' %}" class="link-danger"> Yes</a>.
+                           </span>
+                        </p>
+
+                        <p class="text-center pt-2">
+                           <a href="{% url 'customers' %}">Cancel</a>
+                        </p>
+
+                     {% endfor %}
+
+                  {% else %}
+
+                     <h4 class="text-center">Hi, {{ user.username | title }}</h4>
+                     <h3 class="pb-5 text-center page-title">Modify Customer</h3>
+
+                     <p>No data to display. <a href="#" onclick="showSearch()">Try again?</a></p>
+
+                     <!-- Search by Customer ID -->
+                     <div id="show-search" style="display: none; text-align: center;">
+
+                        <form action="{% url 'modify' %}" method="GET">
+                           <p>Search by Customer ID:</p>
+                           <input
+                              type="number"
+                              name="customer_id"
+                              class="form-info w-25"
+                              pattern="[0-9]"
+                           /><!-- input only allows numerical values 0 to 9 -->
+                           <input type="submit" value="Search" class="submit-search">
+                        </form>
+
+                        <p class="text-center pt-2">
+                           <a href="{% url 'customers' %}">Cancel</a>
+                        </p>
+
                      </div>
 
-                     <input type="submit" value="Create" class="btn mt-4" />
+                     <!-- <p class="text-center pt-2">
+                        <a href="{% url 'customers' %}">Cancel</a>
+                     </p> -->
 
-                     <p class="text-center">
-                        <a href="{% url 'customers' %}">Delete</a>
-                     </p>
-                     <!-- TODO: ADD "Are you sure?" -->
-                  </form>
+                  {% endif %}
 
                {% else %}
 

@@ -50,33 +50,17 @@ def create(request):
       return render(request, 'customers/create.html', context)
 
 
-def search(request):
-   search_user = Customer.objects.filter(user=request.user)
-
-   if 'customer_id' in request.GET:
-      customer_id = request.GET['customer_id']
-      if customer_id:
-         search_query = search_user.filter(customer_id__iexact=customer_id)
-      
-   context = {
-      'results': search_query,
-   }
-
-   return render(request, 'search.html', context)
-
-
-def modify(request, customer_id):
+def modify(request):  # (request, customer_id)
    if request.method == 'GET':
       customer_id = request.GET['customer_id']
-
-      # display 404 if object doesn't exist
-      customer = get_object_or_404(Customer, pk=customer_id)
-
+      search_user = Customer.objects.filter(user=request.user)
+      search_query = search_user.filter(customer_id__iexact=customer_id)
+         
       context = {
-         'customer': customer,
+         'results': search_query,
       }
 
-      return render(request, 'modify.html', context)
+      return render(request, 'customers/modify.html', context)
 
    else:
       customer_id = request.POST['customer_id']

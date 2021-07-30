@@ -23,7 +23,7 @@
 
                {% if user.is_authenticated %}
 
-                  <h4 class="text-center">Hi, {{ user.username | title }}</h4><!-- pb-5 -->
+                  <h4 class="text-center">Hi, {{ user.username | title }}</h4>
 
                   <!-- Message Alert -->
                   <div class="alert-area">
@@ -32,18 +32,33 @@
 
                   <div class="form-width m-auto">
 
+                     <!-- Create -->
                      <a href="{% url 'create' %}">
                         <button type="button" class="btn-outline">
                            Create a new customer
                         </button>
                      </a>
 
-                     <a href="{% url 'search' %}">
-                        <button type="button" class="btn-outline">
-                           Modify an existing customer
-                        </button>
-                     </a>
+                     <!-- Modify -->
+                     <button onclick="showSearch()" type="button" class="btn-outline">
+                        Modify an existing customer
+                     </button>
 
+                     <!-- Search by Customer ID -->
+                     <div id="show-search" style="display: none; text-align: center;">
+                        <form action="{% url 'modify' %}" method="GET">
+                           <p>Search by Customer ID:</p>
+                           <input
+                              type="number"
+                              name="customer_id"
+                              class="form-info w-25"
+                              pattern="[0-9]"
+                           /><!-- input only allows numerical values 0 to 9 -->
+                           <input type="submit" value="Search" class="submit-search">
+                        </form>
+                     </div>
+
+                     <!-- Display -->
                      <a href="{% url 'display' %}">
                         <button type="button" class="btn-outline">
                            Display all customers
