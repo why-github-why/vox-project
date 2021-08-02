@@ -4,7 +4,7 @@ from django.utils.timezone import now  # use instead of datetime.datetime.now
 
 
 class Customer(models.Model):
-   customer_id = models.IntegerField()  # default=0
+   customer_id = models.CharField(max_length=25)  # IntegerField()
    company_name = models.CharField(max_length=50)
    customer_email = models.CharField(max_length=50)
    customer_phone = models.CharField(max_length=25, blank=True)

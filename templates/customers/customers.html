@@ -48,12 +48,18 @@
                      <div id="show-search" style="display: none; text-align: center;">
                         <form action="{% url 'modify' %}" method="GET">
                            <p>Search by Customer ID:</p>
-                           <input
+                           <!-- input only allows numerical values 0 to 9 -->
+                           <!-- <input
                               type="number"
                               name="customer_id"
                               class="form-info w-25"
                               pattern="[0-9]"
-                           /><!-- input only allows numerical values 0 to 9 -->
+                           /> -->
+                           <input
+                              type="text"
+                              name="customer_id"
+                              class="form-info w-25"
+                           />
                            <input type="submit" value="Search" class="submit-search">
                         </form>
                      </div>

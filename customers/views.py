@@ -32,16 +32,46 @@ def create(request):
 
    else:
       # check if any customer ID starts with user ID
-      any_customers = Customer.objects.filter(customer_id__startswith=request.user.id)
+      if request.user.id < 10:
+         any_customers = Customer.objects.filter(customer_id__startswith=request.user.id)
+         print(type(request.user.id), request.user.id)
+      else:
+         custom_user_id = f"U{request.user.id}"
+         any_customers = Customer.objects.filter(customer_id__startswith=custom_user_id)
+         print(type(custom_user_id), custom_user_id)
 
       if not any_customers:
-         # if not, new ID = user ID with two trailing zeros
-         new_id = f"{request.user.id}00"
-         customer_id = int(new_id)
+         if request.user.id < 10:
+            # if not, new ID = user ID with two trailing zeros
+            new_id = f"{request.user.id}00"
+            customer_id = int(new_id)
+         else:
+            # if not, new ID = custom user ID + "C1000"
+            customer_id = f"{custom_user_id}C0000"
       else:
-         # if so, increment customer ID by 1
-         latest_customer = any_customers.order_by('customer_id').last()
-         customer_id = latest_customer.customer_id + 1
+         if request.user.id < 10:
+            # if so, increment customer ID by 1
+            latest_customer = any_customers.order_by('customer_id').last()
+            # customer_id = latest_customer.customer_id + 1
+            increment_id = int(latest_customer.customer_id[-2:]) + 1
+            if increment_id < 10:
+               customer_id = f"{latest_customer.customer_id[:-2]}0{increment_id}"
+            else:
+               customer_id = f"{latest_customer.customer_id[:-2]}{increment_id}"
+         else:
+            latest_customer = any_customers.order_by('customer_id').last()
+            # increment last four characters by 1 after converting to integer
+            increment_id = int(latest_customer.customer_id[-4:]) + 1
+            # concatenate string with incremented id
+            if increment_id < 10:
+               customer_id = f"{latest_customer.customer_id[:-4]}000{increment_id}"
+            elif increment_id < 100:
+               customer_id = f"{latest_customer.customer_id[:-4]}00{increment_id}"
+            elif increment_id < 1000:
+               customer_id = f"{latest_customer.customer_id[:-4]}0{increment_id}"
+            else:
+               customer_id = f"{latest_customer.customer_id[:-4]}{increment_id}"
+
 
       context = {
          'customer_id': customer_id,
