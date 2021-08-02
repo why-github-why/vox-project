@@ -1,4 +1,4 @@
-from django.core import paginator
+from django.db import models
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages, auth
 from django.http import HttpResponse
@@ -50,7 +50,7 @@ def create(request):
       return render(request, 'customers/create.html', context)
 
 
-def modify(request):  # (request, customer_id)
+def modify(request):
    if request.method == 'GET':
       customer_id = request.GET['customer_id']
       search_user = Customer.objects.filter(user=request.user)
@@ -63,22 +63,37 @@ def modify(request):  # (request, customer_id)
       return render(request, 'customers/modify.html', context)
 
    else:
-      customer_id = request.POST['customer_id']
-      company_name = request.POST['company_name']
-      customer_email = request.POST['customer_email']
-      customer_phone = request.POST['customer_phone']
-      user_id = request.POST['user_id']
+      # modify existing object via current customer ID
+      # modified object as dict
+      modified_object = {
+         "customer_id": request.POST['customer_id'],
+         "company_name": request.POST['company_name'],
+         "customer_email": request.POST['customer_email'],
+         "customer_phone": request.POST['customer_phone'],
+         "user_id": request.POST['user_id'],
+      }
 
-      customer = Customer(
-         customer_id = customer_id,
-         company_name = company_name,
-         customer_email = customer_email,
-         customer_phone = customer_phone,
-         user_id=user_id,
-      )
+      # objects.get - get current dict
+      customer = Customer.objects.get(customer_id=modified_object['customer_id'])
+
+      # setattr - sets the value of an objects attribute
+      # iterate through current dict and update each entry
+      for key, value in modified_object.items():
+         setattr(customer, key, value)
+
+      # save modified object (dict)
       customer.save()
 
       messages.success(request, 'Customer modified.')
+      return redirect('customers')
+
+
+def delete(request):
+   if request.method == "POST":
+      customer = Customer.objects.filter(customer_id=request.POST['customer_id'], user_id=request.POST['user_id'])
+      customer.delete()
+
+      messages.success(request, 'Customer deleted.')
       return redirect('customers')
 
 
@@ -92,6 +107,7 @@ def display(request):
       
    context = {
       'display_customers': display_all,
+      'total_entries': paginator.count,
    }
 
    return render(request, 'customers/display.html', context)

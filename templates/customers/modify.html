@@ -28,7 +28,7 @@
                         <h4 class="text-center">Hi, {{ user.username | title }}</h4>
                         <h3 class="pb-5 text-center page-title">Modify Customer</h3>
 
-                        <form action="{% url 'modify' %}" method="POST">
+                        <form action="{% url 'modify' %}" method="POST"><!-- MODIFY -->
                            {% csrf_token %}
                            <div class="form-group">
                               <p>User ID</p>
@@ -82,20 +82,41 @@
 
                         </form>
 
-                        <p class="text-center">
-                           <a
-                              href="#/"
-                              class="link-danger"
-                              id="prompt-delete"
-                              onclick="promptDelete()"
-                              >Delete</a
-                           >
-                           <span id="answer-yes" style="display: none;">
-                              Are you sure?
-                              <a href="{% url 'customers' %}" class="link-danger"> Yes</a>.
-                           </span>
-                        </p>
+                        <form id="delete-customer" action="{% url 'delete' %}" method="POST"><!-- DELETE -->
+                           {% csrf_token %}
 
+                           <input
+                              type="text"
+                              name="user_id"
+                              class="form-id"
+                              value="{{ user.id }}"
+                              hidden
+                           />
+                           <input
+                              type="text"
+                              name="customer_id"
+                              class="form-id"
+                              value="{{ result.customer_id }}"
+                              hidden
+                           />
+
+                           <p class="text-center">
+                              <a
+                                 href="#/"
+                                 class="link-danger"
+                                 id="prompt-delete"
+                                 onclick="promptDelete()"
+                                 >Delete</a
+                              >
+                              <span id="answer-yes" style="display: none;">
+                                 Are you sure?
+
+                                 <a href="#" class="link-danger" onclick="document.getElementById('delete-customer').submit();"> Yes</a>.
+
+                              </span>
+                           </p>
+
+                        </form>
                         <p class="text-center pt-2">
                            <a href="{% url 'customers' %}">Cancel</a>
                         </p>

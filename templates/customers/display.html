@@ -86,7 +86,7 @@
                         <div class="col-md-12">
 
                            {% if display_customers.has_other_pages %}
-                              <ul class="pagination">
+                              <ul class="pagination position-relative">
 
                                  <!-- Previous button -->
                                  {% if display_customers.has_previous %}
@@ -100,22 +100,23 @@
                                  {% endif %}
 
                                  <!-- Page Numbers -->
+                                 <!-- elif - display current page with max 2 trailing and leading numbers instead of whole range -->
                                  {% for d in display_customers.paginator.page_range %}
                                     {% if display_customers.number == d %}
                                        <li class="page-item active">
                                           <a href="" class="page-link">{{ d }}</a>
                                        </li>
-                                    {% else %}
+                                    {% elif d > display_customers.number|add:'-3' and d < display_customers.number|add:'3' %}
                                        <li class="page-item">
-                                          <a href="?page={{ d }}" class="page-link">{{ d }}</a>
+                                          <a class="page-link" href="?page={{ d }}">{{ d }}</a>
                                        </li>
                                     {% endif %}
                                  {% endfor %}
 
                                  <!-- Next button -->
                                  {% if display_customers.has_next %}
-                                 <li class="page-item">
-                                    <a href="?page={{ display_customers.next_page_number }}" class="page-link">&raquo;</a>
+                                    <li class="page-item">
+                                       <a href="?page={{ display_customers.next_page_number }}" class="page-link">&raquo;</a>
                                     </li>
                                  {% else %}
                                     <li class="page-item disabled">
@@ -123,7 +124,12 @@
                                     </li>
                                  {% endif %}
 
+                                 <li class="position-absolute" style="top: 6px; right: 5%;">
+                                    <p>({{ total_entries }})</p>
+                                 </li>
+
                               </ul>
+
                            {% endif %}
 
                         </div>
