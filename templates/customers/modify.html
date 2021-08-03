@@ -136,11 +136,10 @@
                         <form action="{% url 'modify' %}" method="GET">
                            <p>Search by Customer ID:</p>
                            <input
-                              type="number"
+                              type="text"
                               name="customer_id"
                               class="form-info w-25"
-                              pattern="[0-9]"
-                           /><!-- input only allows numerical values 0 to 9 -->
+                           />
                            <input type="submit" value="Search" class="submit-search">
                         </form>
 
